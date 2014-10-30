@@ -1,0 +1,36 @@
+
+var update =  {
+	topic : 'add', //what sort of update is being done e.g. add/update/delete/change tempo
+	data : { //contents of data would vary depending on topic //server needs to generate id and send back to client
+		pitch : 44,
+		track : 1, //position in track array
+		position : 34,
+		length : 4 //number of minimum subdivisions
+	}
+}
+
+var tune = {
+	head : {
+		title : 'bleh',
+		tempo : 9000,
+		genre : 'rock',
+		length : 32,
+		barLength : 4,
+		subdivisions : 2,
+		tags : [array of tags]
+		//plus anything else we need to know
+	},
+	tracks : [array of track jsons]
+}
+
+var track = {
+	instrument : 1,
+	notes : [array of notes]
+}
+
+var note = {
+	id : 4444,
+	position : 45, //overall position in track
+	length : 3, //length in terms of minimum subdivisions
+	pitch : 33
+}
