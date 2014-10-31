@@ -1,0 +1,29 @@
+data is stored in so called entities
+
+entities have unique keys
+
+entities can have parent entities
+
+parent entities have child entities
+
+form a structure similar to a file system
+
+An entity's parent, parent's parent, and so on recursively, are its ancestors
+
+its children, children's children, and so on, are its descendants
+
+a root entity has no parent
+
+Entities descended from a common ancestor are said to belong to the same entity group
+
+the common ancestor's key is the group's parent key, which serves to identify the entire group
+
+Queries over a single entity group, called ancestor queries, refer to the parent key instead of a specific entity's key
+
+Entity groups are a unit of both consistency and transactionality
+
+queries over multiple entity groups may return stale, eventually consistent results
+
+those limited to a single entity group always return up-to-date, strongly consistent results.
+
+write rate to a single entity group should be limited to ~1 per second
