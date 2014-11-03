@@ -28,6 +28,7 @@ action, and checked only when the client has no outstanding actions.
 
 Action
 ------
+These are sent from client to server.
 
 An action object has the following attributes:
 
@@ -103,33 +104,32 @@ instrumentEdit
 
 stateDump
 =========
+This is a request for a stateDump
 {
   "action": "stateDump",
   "actionId": uniqueActionId,
-  "state":
-  {
-    /*Object as documented in "Updated Json format.txt"*/
-  }
 }
 
+Server replies
+--------------
+
+The server replies with the same action contents, but with an additional field,
+"checksum". This contains a checksum of the state after this action has been
+applied. Once clients have no outstanding actions to be serviced (they can
+check this by keeping a list of action IDs sent, remembering to clear it if a
+state dump is required), they can check the state by comparing the checksum
+against a calculated checksum of their own state. If the states don't match,
+they can flag up an error and/or request a state dump.
+
+The checksum format is tricky, but I propose a sha1sum of the JSON state with
+notes ordered by note ID then noteOn (it's invalid to have a note with the same
+ID and noteOn status), instruments ordered by channel, and no whitespace. If
+anyone has a better idea, feel free to correct this.
 
 State dump
-----------
+==========
 
 The server can send the entire state to the client, by sending the "stateDump"
-action.
-
-
-
-
-
-A adds note 1 to position x
-B adds note 2 to position x
-
-A locally has note 1
-B locally has note 2
-
-Server sends to all clients note 1 at x
-Server sends to all clients note 2 at x
-
-
+action after a client sends an empty stateDump action. This action contains an
+additional object, the "state" object, containing JSON as described in
+"Updated Json format.txt".
