@@ -1,4 +1,5 @@
-u wot m8
+Thou inquirst, companion?
+That sentence gave me cancebola.
 
 SEARCH
 ------
@@ -18,6 +19,7 @@ Dashboard
 
 User page
 ---------
+
 - User Bio
 - List of songs they've authored
 - List of songs they've collaborated on
