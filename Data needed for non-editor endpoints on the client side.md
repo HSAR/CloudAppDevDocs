@@ -10,6 +10,8 @@ SEARCH
 - Main author
 - Rating
 - Date created
+- Get a selected song
+- Rate a selected song
 
 Dashboard
 ---------
