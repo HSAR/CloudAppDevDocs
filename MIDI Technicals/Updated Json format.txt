@@ -1,0 +1,112 @@
+{
+    "head":  {
+                  "subDivisions":number,
+                  "tempo":       number
+                  
+             },
+    "tracks":[
+                  {
+                      "instrument":number,
+                      "notes":     [
+                                        {"id":number, "pos":number, "length":number, "note":number},
+                                        {"id":number, "pos":number, "length":number, "note":number}
+                                   ]
+                  },
+                  {
+                      "instrument":number,
+                      "notes":     [
+                                        {"id":number, "pos":number, "length":number, "note":number},
+                                        {"id":number, "pos":number, "length":number, "note":number}
+                                   ]
+                  }
+             ]
+}
+
+Explanation
+
+The format is split into two sections: head and tracks.
+
+head is simply a dictionary. When it is stored on the server it will only contain those two fields. Other 
+fields relating to the song such as title and genre will be stored as separate properties in the jingle entity.
+However, when the whole song is sent to the client, the head will also contain these fields for the purpose of
+sending data.
+
+    subDivisions is the amount a quarter note (or if you're English, a crotchet) has been split up. For example, a 
+    value of 4 would mean there are 4 possible positions a note could start or stop in the length represented by
+    a crotchet. In reality it means if a higher value is used, the user would be able to choose more precisely the
+    start and stop of a note in the editor. 
+    1 is the lowest possible value. It would mean notes could not be smaller than a crotchet and must start and end
+    where the crotchets start and end if placed back to back.
+
+
+    tempo is beats per minute. A normal value is around 120 bpm. It would seem that in MIDI at least, there are 2
+    crotchets in a beat. This seems confusing and might actually be wrong but in the end it won't matter because 
+    it only defines how fast the jingle should be played.
+
+
+
+tracks is an array of dictionaries where each dictionary represents a single track. There can be a maximum of 15 tracks.
+There are 16 channels available in MIDI but channel 10 is reserved for percussion so you can have a maximum of
+15 instruments. Inside a track we have:
+
+    instrument - a number from 0 to 127 which is the MIDI instrument number.
+
+
+    notes - an array of note definitions. A note definition contains the following:
+    
+        id - needed so we can uniquely identify a note when the client deletes or edits it. Note IDs are only unique to tracks.
+             This means to uniquely identify a note in the whole jingle you need to the track it is in and its ID.
+
+        pos - the position in the jingle this note starts. position is in terms of subDivisions.
+        
+        length - The number of subDivisions this note lasts for
+
+        note - a number from 0 to 127 representing which note should be played. We are probably going to limit to 3 octaves,
+               so this range of numbers will be more restricted
+
+
+               
+               
+               
+               
+This JSON format is likely to influence the content of the messages sent between client and server during editing.
+
+When a new jingle is created or a current jingle is loaded, the server will need to send the entire JOSN string to the client
+    In the case of a new jingle being created, this could be a JSON with subDivision and tempo set to their default values
+    and the tracks array empty
+    
+    Please remember that when the whole JSON is being sent to the client, the head section will also include:
+        title
+        length
+        genre
+        tags
+    
+When a jingle is being edited, there will need to be messages for the following:
+    edit tempo
+    edit subDivision
+    add/edit instrument
+    add/edit note
+    
+There will also need to be messages for getting the MIDI file from the server for playback in the editor
+    
+When adding an instrument the instrument ID will be sent to the server. The server should then respond with which track that
+instrument was added to. A new, empty notes array will also be created for that instrument at this point.
+
+When editing an instrument, the instrument and track number will need to be sent to the server.
+
+When removing an instrument, the track number will need to be sent to the server
+
+When adding a note the following is needed:
+    track number
+    position
+    length
+    note 
+The server will reply with the note ID
+
+When editing or removing a note the following is needed:
+    track number
+    note ID
+    the values which are being changed if its an edit
+    
+To uniquely identify a note, the track number and note ID are needed. Then the server will know which note it needs
+to apply the updated values to.
