@@ -84,29 +84,27 @@ When a new jingle is created or a current jingle is loaded, the server will need
 When a jingle is being edited, there will need to be messages for the following:
     edit tempo
     edit subDivision
-    add/edit instrument
-    add/edit note
+    add/edit/remove instrument
+    add/remove note
     
 There will also need to be messages for getting the MIDI file from the server for playback in the editor
     
-When adding an instrument the instrument ID will be sent to the server. The server should then respond with which track that
-instrument was added to. A new, empty notes array will also be created for that instrument at this point.
+When adding an instrument the instrument ID and track number it is being added to will need to be sent to
+the server. A new, empty notes array will also be created for that instrument at this point.
 
 When editing an instrument, the instrument and track number will need to be sent to the server.
 
 When removing an instrument, the track number will need to be sent to the server
 
 When adding a note the following is needed:
+    id
     track number
     position
     length
     note 
-The server will reply with the note ID
 
-When editing or removing a note the following is needed:
+When removing a note the following is needed:
     track number
     note ID
-    the values which are being changed if its an edit
     
-To uniquely identify a note, the track number and note ID are needed. Then the server will know which note it needs
-to apply the updated values to.
+To uniquely identify a note, the track number and note ID are needed.

@@ -43,10 +43,9 @@ noteAdd
   "note": {
     "id": number,
     "pos": number,
-    "chan": number,
+    "track": number,
     "note": number,
-    "vol": number,
-    "noteOn": boolean
+    "length": number
   }
 }
 
@@ -55,7 +54,8 @@ noteRm
 {
   "action": "noteRm",
   "actionId": uniqueActionId,
-  "noteId": noteid
+  "noteId": noteid,
+  "track": trackNumber
 }
 
 tempo
@@ -80,7 +80,7 @@ instrumentAdd
   "action": "instrumentAdd",
   "actionId": uniqueActionId,
   "instrument": {
-    "chan": number,
+    "track": number,
     "inst": number
   }
 }
@@ -90,7 +90,7 @@ instrumentRm
 {
   "action": "instrumentRm",
   "actionId": uniqueActionId,
-  "instrumentChan": instrumentChannel
+  "instrumentTrack": instrumentTrack
 }
 
 instrumentEdit
@@ -98,7 +98,7 @@ instrumentEdit
 {
   "action": "instrumentEdit",
   "actionId": uniqueActionId,
-  "instrumentChan": instrumentChannel,
+  "instrumentTrack": instrumentTrack,
   "instrumentNumber": instrumentNumber
 }
 
