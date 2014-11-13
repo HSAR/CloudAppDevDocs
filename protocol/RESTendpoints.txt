@@ -1,1 +1,6 @@
+/auth/* - Authenticated Actions/Data
 /auth/token auth.py
+
+/users/* - Public User Actions/Data
+
+/songs/* - Song Actions/Data
