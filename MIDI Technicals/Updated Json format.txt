@@ -76,10 +76,13 @@ When a new jingle is created or a current jingle is loaded, the server will need
     and the tracks array empty
     
     Please remember that when the whole JSON is being sent to the client, the head section will also include:
+    (note from Murray: Wouldn't it be easier if these were included every time?
+    This seems to me sane, so that the object can be converted with one command without having to pick out the name/etc. every time)
         title
-        length
+        length (note from Murray: what of/how? I'm going to assume beats, since then it's super accurate and still easy to work with given the other info provided in the same header (ie the tempo). Maybe actually subdivisions would be better because then it could be even more accurate.)
         genre
         tags
+        id (note from Murray: I've added this, since it seems insane to not give songs IDs. Two songs could easily have the same title)
     
 When a jingle is being edited, there will need to be messages for the following:
     edit tempo
