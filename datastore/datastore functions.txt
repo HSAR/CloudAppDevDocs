@@ -1,0 +1,235 @@
+Datastore functions
+
+
+Brief explanation
+A lot of these functions take a uid. This does not need to be sent by the client
+in some cases. The server is able to use Google's user service to get the user
+object of the currently signed in user. One of the fields of the user object
+is the user_id.
+
+Some of the functions return a python dictionary that can contain an error message.
+These are only error messages related to a problem with the passed in values,
+for example if a username has already been taken. The other case is when a Jingle
+cannot be edited because the service is busy. The error message can be sent back
+to the client to describe the problem to them.
+
+
+Read Functions
+
+    JinglrUser
+    
+        getUserById(uid)                                                                                **DONE**
+            returns JinglrUser entity if it exists, None otherwise
+            
+        getUserByUsername(username)                                                                     **DONE**
+            returns JinglrUser entity if it exists, None otherwise
+            
+        getUsersSongs(uid)
+            returns a list of Jingle entities whose author is the user with uid
+            
+        getUsersCollab(uid)
+            returns a list of Jingle entities which the user with id uid is collaborating on
+            
+        getCollabInvites(uid)
+            returns a list of Jingle entities which the user with the id uid has been invited to collaborate on
+            
+        getUsernameByUID(uid)
+            internal function to datastore
+            returns the username of the user whose id is uid
+            will use memchache to reduce query load
+            
+    
+    Jingle
+    
+        getJingleByID(jid)                                                                              **DONE**
+            returns Jingle entity if it exists, None otherwise
+            
+        getAllJingles(order, reverse_order, max_results, cursor_url)                                    **IN PROGRESS**
+            current state of the search function. Does no searching yet, just 
+            returns paged results in a specified order
+            
+            order is one of Orderings as defined at the top of the datastore. Defaults to creation date
+            
+            reverse_order is a boolean, defaults to False
+            
+            max_results is the number of results per page. Defaults to 20
+            
+            cursor_url is what you need to pass back to us to get the next page of results. If None returns the first page
+            
+            returns? ask Jon
+            
+        getStateDump(jid)
+            returns the Jingle JSON. If jid is not a valid Jingle ID, returns None
+            
+        getCollaborators(jid)
+            returns a list of JingleUser entities who are collaborators to this Jingle. returns None if jid is not valid
+            
+        
+    JinglrMap
+        These two functions are internal to the datastore.
+        
+        getTaskQueueNameForJingle(jid)                                                                  **DONE**
+            returns the name of the task queue this jingle is being used in. None if no task queue is set up for this jingle
+            
+        getTaskQueueWithName(taskqueueName)                                                             **DONE**
+            returns the JinglrMap entity whose task queue name is taskqueueName. None if there are no task queues with that name
+            
+            
+            
+Blocking Writes
+    These functions block until the write to the datastore has been successful
+    
+    JinglrUser
+    
+        createUser(uid, username)                                                                       **DONE**
+            returns a python dictionary. If there was an error:
+                {"errorMessage" : errorMessage}
+            or on success:
+                {"userKey" : key}
+            userKey is the JinglrUser entity key for the newly created user
+            
+        updateUsername(uid, username)                                                                   **DONE**
+            returns a python dictionary. If there was an error:
+                {"errorMessage" : errorMessage}
+            or on success:
+                {"userKey" : key}
+            userKey is the JinglrUser entity key of the edited user
+            
+        updateBio(uid, bio)                                                                             **DONE**
+            returns the JinglrUser entity key on success, or None if uid is not valid
+            
+        updateTags(uid, tags)                                                                           **DONE**
+            tags is a list of the new set of tags for the user. It replaces the old tags
+            returns the JinglrUser entity key on success, or None if uid is not valid
+            
+        addCollab(uid, jid)
+            This might be an internal datastore function if it ends up getting called by answerCollabInvite
+            returns a python dictionary. If there was an error:
+                {"errorMessage" : errorMessage}
+            or on success:
+                {"userKey" : key}
+            userKey is the JinglrUser entity key for the updated user entity
+            
+        removeCollab(uid, jid)
+            called if a user wants to stop collaborating on a song. This should also
+            call removeJingleCollab to remove this user from the list of collaborators 
+            for that song
+            
+            returns a python dictionary. If there was an error:
+                {"errorMessage" : errorMessage}
+            or on success:
+                {"userKey" : key}
+            userKey is the JinglrUser entity key for the updated user entity
+            
+        addCollabInvite(username, jid)
+            This could be when one user selects another user to collab on one of their songs.
+            This is a request made by the person who owns the song, so they will need to send the uid
+            of the user they wish to collab on their song. So the uid passed into this function is the 
+            uid of the person who is being invited to collaborate. To check permission of this function,
+            you will need to check that the user sending the invite is the author of the specified jingle
+            
+            returns a python dictionary. If there was an error:
+                {"errorMessage" : errorMessage}
+            or on success:
+                {"userKey" : key}
+            userKey is the JinglrUser entity key for the updated user entity
+            
+        answerCollabInvite(uid, jid, accept)
+            uid - the user
+            jid - the jingle
+            accept - a boolean. If true the invite is accepted, if false the invite is rejected
+            if it is true it should call addCollab and addJingleCollab
+            
+            returns a python dictionary. If there was an error:
+                {"errorMessage" : errorMessage}
+            or on success:
+                {"userKey" : key}
+            userKey is the JinglrUser entity key for the updated user entity
+            
+            
+    Jingle
+    
+        createJingle(uid, title, genre, tags)                                                           **DONE**
+            genre and tags are optional.
+            
+            returns the key of the newly created Jingle Entity
+            
+        changeTitle(jid, title)
+            returns the Jingle entity key on success, or None if jid is not valid
+            
+        changeGenre(jid, genre)
+            returns the Jingle entity key on success, or None if jid is not valid
+            
+        changeTags(jid, tags)
+            tags is a list of the new set of tags for the jingle. It replaces the old tags
+            returns the Jingle entity key on success, or None if jid is not valid
+            
+        addJingleCollab(jid, uid)
+            This might end up being an internal datastore function if it gets called by answerCollab
+            returns a python dictionary. If there was an error:
+                {"errorMessage" : errorMessage}
+            or on success:
+                {"jingleKey" : key}
+            jingleKey is the Jingle entity key for the updated jingle entity
+            
+        removeJingleCollab(jid, uid)
+            called when an author of a jingle wants to remove a collaborator from it
+            jid is the id of the song in question and uid is the id of the user to remove
+            
+            This function should also call removeCollab to remove the jingle from the users
+            list of collaborating on songs.
+            
+            returns a python dictionary. If there was an error:
+                {"errorMessage" : errorMessage}
+            or on success:
+                {"jingleKey" : key}
+            jingleKey is the Jingle entity key for the updated jingle entity
+            
+        beginEditing(uid, jid)                                                                          **DONE**
+            called when the user uid wants to start editing the jingle jid
+            
+            returns a python dictionary. If there was an error:
+                {"errorMessage" : errorMessage}
+            or on success:
+                {"token" : token}
+            token is the channel token that a client can use to set up a channel
+            to listen to changes to the jingle from other users
+            
+        requestNewToken(jid, oldToken)
+            called via a request from the client when they notice that their token has expired.
+            takes the id of the jingle the client was editing and the old token which must now be removed
+            from the relevant JinglrMap.
+            returns a fresh token which can be used by the client
+            
+        stopEditing(jid, channelToken)                                                                  **DONE**
+            called when a user stops editing a jingle
+            jid is the jingle id they stopped editing and channelToken was the
+            token they were using
+            
+            doesn't return anything. Remember, we are expecting the clients to press the
+            close button so we will be lucky if the client gets to call stopEditing
+            
+            
+Non blocking writes
+    these are the functions which update a jingles JSON. The tasks get added to
+    a task queue to do later, and the function returns.
+    
+    each of these takes an action which is a python dictionary. It may also take
+    the song ID as another parameter though it may be part of the action dictionary
+    
+    They don't return anything but once the action has been complete it will be sent down
+    the channels
+    
+    addNote
+    
+    removeNote                                                                                          **DONE**
+    
+    setTempo
+    
+    setSubDivisions
+    
+    addInstrument
+    
+    editInstrument
+    
+    removeInstrument
