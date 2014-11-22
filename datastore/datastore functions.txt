@@ -24,16 +24,16 @@ Read Functions
         getUserByUsername(username)                                                                     **DONE**
             returns JinglrUser entity if it exists, None otherwise
             
-        getUsersSongs(uid)
+        getUsersSongs(uid)                                                                              **DONE**        
             returns a list of Jingle entities whose author is the user with uid
             
-        getUsersCollab(uid)
+        getUserCollabs(uid)                                                                             **DONE**
             returns a list of Jingle entities which the user with id uid is collaborating on
             
-        getCollabInvites(uid)
+        getCollabInvites(uid)                                                                           **DONE**
             returns a list of Jingle entities which the user with the id uid has been invited to collaborate on
             
-        getUsernameByUID(uid)
+        getUsernameByUID(uid)                                                                           **DONE**        
             internal function to datastore
             returns the username of the user whose id is uid
             will use memchache to reduce query load
