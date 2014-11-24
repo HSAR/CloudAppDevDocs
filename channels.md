@@ -30,8 +30,15 @@ Usage
 - Server calls `channel.send_message(clientID, message)` - clientID can also be the token create returns
 - Message limited to 32K, should be a JSON
 - When client receives data, `socket.onMessage` callback called with the message as a parameter
-- In the event of a message send failure, no error is produced unless message/clientId was invalid
-- Client can disconnect using  `channel.close()` - server must create a new channel to reconnect
+- Client can close its socket using `socket.close()` - this does not close the channel, a new socket can be opened from the channel object
+- Channels cannot be closed, they simply expire after their predetermined timeout
+
+Errors
+------
+- In the event of a message send failure, no error is produced on the server unless message/clientId was invalid
+- In the event of token expiring, or being invalid altogether, `socket.onError` is called on the client, followed by `socket.onClose`
+- `onError` passed a parameter - object with a code field (401) and a description: `Invalid+token` or `Token+timed+out`
+- A new channel will have to be created by the server if `onError` is called
 
 Restrictions
 ------------
