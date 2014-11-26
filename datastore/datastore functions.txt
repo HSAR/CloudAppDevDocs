@@ -41,8 +41,8 @@ Read Functions
     
     Jingle
     
-        getJingleByID(jid)                                                                              **DONE**
-            returns Jingle entity if it exists, None otherwise
+        getJingleByID(jid, json)                                                                              **DONE**
+            returns Jingle entity if it exists (with or without its song json), None if the jid is invalid
             
         getAllJingles(order, reverse_order, max_results, cursor_url)                                    **IN PROGRESS**
             current state of the search function. Does no searching yet, just 
@@ -58,22 +58,8 @@ Read Functions
             
             returns? ask Jon
             
-        getStateDump(jid)
-            returns the Jingle JSON. If jid is not a valid Jingle ID, returns None
-            
-        getCollaborators(jid)
+        getCollaborators(jid)										**DONE**
             returns a list of JingleUser entities who are collaborators to this Jingle. returns None if jid is not valid
-            
-        
-    JinglrMap
-        These two functions are internal to the datastore.
-        
-        getTaskQueueNameForJingle(jid)                                                                  **DONE**
-            returns the name of the task queue this jingle is being used in. None if no task queue is set up for this jingle
-            
-        getTaskQueueWithName(taskqueueName)                                                             **DONE**
-            returns the JinglrMap entity whose task queue name is taskqueueName. None if there are no task queues with that name
-            
             
             
 Blocking Writes
@@ -154,13 +140,13 @@ Blocking Writes
             
             returns the key of the newly created Jingle Entity
             
-        changeTitle(jid, title)
+        changeTitle(jid, title)										**DONE**
             returns the Jingle entity key on success, or None if jid is not valid
             
-        changeGenre(jid, genre)
+        changeGenre(jid, genre)										**DONE**
             returns the Jingle entity key on success, or None if jid is not valid
             
-        changeTags(jid, tags)
+        changeTags(jid, tags)										**DONE**
             tags is a list of the new set of tags for the jingle. It replaces the old tags
             returns the Jingle entity key on success, or None if jid is not valid
             
@@ -211,25 +197,15 @@ Blocking Writes
             
             
 Non blocking writes
-    these are the functions which update a jingles JSON. The tasks get added to
-    a task queue to do later, and the function returns.
     
-    each of these takes an action which is a python dictionary. It may also take
-    the song ID as another parameter though it may be part of the action dictionary
     
-    They don't return anything but once the action has been complete it will be sent down
-    the channels
+    submitAction(jid, action)										**DONE**
+
+	this submits a json update action to be processed by the server. The action gets added to
+    	a task queue to do later, and the function returns.
     
-    addNote
+   	It takes an action which is a python dictionary, and the song ID
     
-    removeNote                                                                                          **DONE**
-    
-    setTempo
-    
-    setSubDivisions
-    
-    addInstrument
-    
-    editInstrument
-    
-    removeInstrument
+    	it doesn't return anything but once the action has been completed it will be sent down
+    	the channels
+	
