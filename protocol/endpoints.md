@@ -6,6 +6,15 @@ REST Endpoints
 
 /songs/* - Song Actions/Data
 
+Get Song By ID = /songs/get/{songid}
+====================================
+Returns the song JSON for the song with the given ID.
+(Incomplete - uses dummy data, but can be switched to datastore by uncommenting a few lines)
+
+Get Song MIDI by ID = /songs/get/midi/{songid}
+==============================================
+Returns the song MIDI (base64 encoded) for the song with the given ID
+(Incomplete - uses dummy data, but can be switched to datastore by uncommenting a few lines)
 
 Add Note = /songs/{songid}/notes PUT
 =======
@@ -48,3 +57,4 @@ Retrieves list of songs worked on by user.
 Get User Invites = /users/{uid}/invites GET
 =======
 Retrieves list of songs user has been invited to work on.
+
