@@ -8,15 +8,15 @@
                   {
                       "instrument":number,
                       "notes":     [
-                                        {"id":number, "pos":number, "length":number, "note":number},
-                                        {"id":number, "pos":number, "length":number, "note":number}
+                                        {"id":string, "pos":number, "length":number, "note":number},
+                                        {"id":string, "pos":number, "length":number, "note":number}
                                    ]
                   },
                   {
                       "instrument":number,
                       "notes":     [
-                                        {"id":number, "pos":number, "length":number, "note":number},
-                                        {"id":number, "pos":number, "length":number, "note":number}
+                                        {"id":string, "pos":number, "length":number, "note":number},
+                                        {"id":string, "pos":number, "length":number, "note":number}
                                    ]
                   }
              ]

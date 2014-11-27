@@ -41,8 +41,8 @@ Read Functions
     
     Jingle
     
-        getJingleByID(jid, json)                                                                              **DONE**
-            returns Jingle entity if it exists (with or without its song json), None if the jid is invalid
+        getJingleByID(jid)                                                                              **DONE**
+            returns Jingle entity if it exists, None if the jid is invalid
             
         getAllJingles(order, reverse_order, max_results, cursor_url)                                    **IN PROGRESS**
             current state of the search function. Does no searching yet, just 
