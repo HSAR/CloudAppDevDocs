@@ -24,7 +24,7 @@ Read Functions
         getUserByUsername(username)                                                                     **DONE**
             returns JinglrUser entity if it exists, None otherwise
             
-        getUsersSongs(uid)                                                                              **DONE**        
+        getUsersSongs(uid)                                                                              **DONE**
             returns a list of Jingle entities whose author is the user with uid
             
         getUserCollabs(uid)                                                                             **DONE**
@@ -33,7 +33,7 @@ Read Functions
         getCollabInvites(uid)                                                                           **DONE**
             returns a list of Jingle entities which the user with the id uid has been invited to collaborate on
             
-        getUsernameByUID(uid)                                                                           **DONE**        
+        getUsernameByUID(uid)                                                                           **DONE**
             internal function to datastore
             returns the username of the user whose id is uid
             will use memchache to reduce query load
@@ -58,8 +58,15 @@ Read Functions
             
             returns? ask Jon
             
-        getCollaborators(jid)										**DONE**
+        getCollaborators(jid)                                                                           **DONE**
             returns a list of JingleUser entities who are collaborators to this Jingle. returns None if jid is not valid
+            
+        getEditedJingles()
+            returns a dictionary with jingle IDs as keys and a list of client IDs used in channels as values
+            used for updating memcache in the task queue handlers
+            
+        getJingleJSON(jid)
+            returns the jingle as a dict of the specified jingle or None if jid is not valid
             
             
 Blocking Writes
@@ -140,15 +147,18 @@ Blocking Writes
             
             returns the key of the newly created Jingle Entity
             
-        changeTitle(jid, title)										**DONE**
+        changeTitle(jid, title)                                                                         **DONE**
             returns the Jingle entity key on success, or None if jid is not valid
             
-        changeGenre(jid, genre)										**DONE**
+        changeGenre(jid, genre)                                                                         **DONE**
             returns the Jingle entity key on success, or None if jid is not valid
             
-        changeTags(jid, tags)										**DONE**
+        changeTags(jid, tags)                                                                           **DONE**
             tags is a list of the new set of tags for the jingle. It replaces the old tags
             returns the Jingle entity key on success, or None if jid is not valid
+            
+        changeJingle(jid, jingle)
+            saves the updated jingle for this jingle entity
             
         addJingleCollab(jid, uid)
             This might end up being an internal datastore function if it gets called by answerCollab
@@ -171,8 +181,8 @@ Blocking Writes
                 {"jingleKey" : key}
             jingleKey is the Jingle entity key for the updated jingle entity
             
-        beginEditing(uid, jid)                                                                          **DONE**
-            called when the user uid wants to start editing the jingle jid
+        beginEditing(jid)                                                                               **DONE**
+            called when a user wants to start editing the jingle jid
             
             returns a python dictionary. If there was an error:
                 {"errorMessage" : errorMessage}
@@ -187,25 +197,21 @@ Blocking Writes
             from the relevant JinglrMap.
             returns a fresh token which can be used by the client
             
-        stopEditing(jid, channelToken)                                                                  **DONE**
+        stopEditing(client_id)                                                                          **DONE**
             called when a user stops editing a jingle
-            jid is the jingle id they stopped editing and channelToken was the
-            token they were using
-            
-            doesn't return anything. Remember, we are expecting the clients to press the
-            close button so we will be lucky if the client gets to call stopEditing
+            this is called automatically for us by the channel service when it detects
+            a channel has been closed
             
             
 Non blocking writes
     
     
-    submitAction(jid, action)										**DONE**
+    submitAction(jid, action)                                                                           **DONE**
 
-	this submits a json update action to be processed by the server. The action gets added to
-    	a task queue to do later, and the function returns.
+    this submits a json update action to be processed by the server. The action gets added to
+        a task queue to do later, and the function returns.
     
-   	It takes an action which is a python dictionary, and the song ID
+    It takes an action which is a python dictionary, and the song ID
     
-    	it doesn't return anything but once the action has been completed it will be sent down
-    	the channels
-	
+        it doesn't return anything but once the action has been completed it will be sent down
+        the channels
