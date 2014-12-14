@@ -28,13 +28,30 @@ Adds a note to the specified song. Expects JSON.
   * note
   * length
 
-Remove Note = /songs/{songid}/notes GET
+Remove Note = /songs/{songid}/notes DELETE
 ======
 Removes a note from the specified song. Expects URI parameters.
 
 * actionId
 * trackId
 * noteId
+
+
+Add Instrument = /songs/{songid}/instruments PUT
+=======
+Adds a track (instrument) to the specified song. Expects JSON.
+
+* actionId
+* instrument
+  * track
+  * inst
+
+Remove Instrument = /songs/{songid}/instruments DELETE
+======
+Removes a track (instrument) from the specified song. Expects URI parameters.
+
+* actionId
+* instrumentTrack
 
 Get User by Username = /users GET
 =======
