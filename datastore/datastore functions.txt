@@ -26,12 +26,20 @@ Read Functions
             
         getUsersSongs(uid)                                                                              **DONE**
             returns a list of Jingle entities whose author is the user with uid
+            The returned jingles have an extra property called 'collab_usernames'
+            which is a list of the usernames of the collaborators for each jingle.
             
         getUserCollabs(uid)                                                                             **DONE**
             returns a list of Jingle entities which the user with id uid is collaborating on
+            The returned jingles have extra properties. One is 'username' which is the username
+            of the author. The other is 'collab_usernames' which is the list of usersnames of the
+            collaborators
             
         getCollabInvites(uid)                                                                           **DONE**
-            returns a list of Jingle entities which the user with the id uid has been invited to collaborate on
+            returns a list of Jingle entities which the user with the id uid has been invited to 
+            collaborate on. Each jingle has an extra property called 'username' which is the username
+            of the jingle author. Each jingle also has an extra property called 'collab_usernames' which
+            as i am sure you know by now, is the list of usernames of the other collaborators
             
         getUsernameByUID(uid)                                                                           **DONE**
             internal function to datastore
@@ -42,7 +50,10 @@ Read Functions
     Jingle
     
         getJingleByID(jid)                                                                              **DONE**
-            returns Jingle entity if it exists, None if the jid is invalid
+            returns Jingle entity if it exists, None if the jid is invalid.
+            The jingle also has a 'username' property which is the username
+            of the author. and it has 'collab_usernames' which is a list of usernames
+            of the collaborators
             
         getAllJingles(order, reverse_order, max_results, cursor_url)                                    **IN PROGRESS**
             current state of the search function. Does no searching yet, just 
@@ -61,11 +72,12 @@ Read Functions
         getCollaborators(jid)                                                                           **DONE**
             returns a list of JingleUser entities who are collaborators to this Jingle. returns None if jid is not valid
             
-        getEditedJingles()
+        getEditedJingles()                                                                              **DONE**
             returns a dictionary with jingle IDs as keys and a list of client IDs used in channels as values
             used for updating memcache in the task queue handlers
+            Not to be called by endpoints
             
-        getJingleJSON(jid)
+        getJingleJSON(jid)                                                                              **DONE**
             returns the jingle as a dict of the specified jingle or None if jid is not valid
             
             
@@ -157,8 +169,9 @@ Blocking Writes
             tags is a list of the new set of tags for the jingle. It replaces the old tags
             returns the Jingle entity key on success, or None if jid is not valid
             
-        changeJingle(jid, jingle)
-            saves the updated jingle for this jingle entity
+        changeJingle(jid, jingle)                                                                       **DONE**    
+            saves the updated jingle for this jingle entity. Returns the jingle entity key
+            not to be called by end points
             
         addJingleCollab(jid, uid)
             This might end up being an internal datastore function if it gets called by answerCollab
