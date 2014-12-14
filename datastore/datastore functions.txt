@@ -107,18 +107,9 @@ Blocking Writes
             tags is a list of the new set of tags for the user. It replaces the old tags
             returns the JinglrUser entity key on success, or None if uid is not valid
             
-        addCollab(uid, jid)
-            This might be an internal datastore function if it ends up getting called by answerCollabInvite
-            returns a python dictionary. If there was an error:
-                {"errorMessage" : errorMessage}
-            or on success:
-                {"userKey" : key}
-            userKey is the JinglrUser entity key for the updated user entity
-            
-        removeCollab(uid, jid)
-            called if a user wants to stop collaborating on a song. This should also
-            call removeJingleCollab to remove this user from the list of collaborators 
-            for that song
+        addCollabInvite(username, jid)                                                                  **DONE**
+            This is used to invite the user with username to collaborate on the jingle
+            with jid. It adds the jid to the users collab_invites
             
             returns a python dictionary. If there was an error:
                 {"errorMessage" : errorMessage}
@@ -126,31 +117,27 @@ Blocking Writes
                 {"userKey" : key}
             userKey is the JinglrUser entity key for the updated user entity
             
-        addCollabInvite(username, jid)
-            This could be when one user selects another user to collab on one of their songs.
-            This is a request made by the person who owns the song, so they will need to send the uid
-            of the user they wish to collab on their song. So the uid passed into this function is the 
-            uid of the person who is being invited to collaborate. To check permission of this function,
-            you will need to check that the user sending the invite is the author of the specified jingle
-            
-            returns a python dictionary. If there was an error:
-                {"errorMessage" : errorMessage}
-            or on success:
-                {"userKey" : key}
-            userKey is the JinglrUser entity key for the updated user entity
-            
-        answerCollabInvite(uid, jid, accept)
+        answerCollabInvite(uid, jid, accept)                                                            **DONE**    
             uid - the user
             jid - the jingle
-            accept - a boolean. If true the invite is accepted, if false the invite is rejected
-            if it is true it should call addCollab and addJingleCollab
-            
+            accept - a boolean. If true the invite is accepted, otherwise rejected
+            if it is true it adds the users uid to the corresponding jingle
+            the invite it removed once answered
             returns a python dictionary. If there was an error:
                 {"errorMessage" : errorMessage}
             or on success:
                 {"userKey" : key}
             userKey is the JinglrUser entity key for the updated user entity
             
+        removeCollab(uid, jid)                                                                          **DONE**
+            this is used to stop a particular user collaborating on a particular song.
+            may be called when a user wants to stop collaborating on a song or a song
+            author wants to remove a collaborator
+            returns a python dictionary. If there was an error:
+                {"errorMessage" : errorMessage}
+            or on success:
+                {"jingleKey" : key}
+            jingleKey is the Jingle entity key for the updated Jingle entity
             
     Jingle
     
@@ -172,27 +159,6 @@ Blocking Writes
         changeJingle(jid, jingle)                                                                       **DONE**    
             saves the updated jingle for this jingle entity. Returns the jingle entity key
             not to be called by end points
-            
-        addJingleCollab(jid, uid)
-            This might end up being an internal datastore function if it gets called by answerCollab
-            returns a python dictionary. If there was an error:
-                {"errorMessage" : errorMessage}
-            or on success:
-                {"jingleKey" : key}
-            jingleKey is the Jingle entity key for the updated jingle entity
-            
-        removeJingleCollab(jid, uid)
-            called when an author of a jingle wants to remove a collaborator from it
-            jid is the id of the song in question and uid is the id of the user to remove
-            
-            This function should also call removeCollab to remove the jingle from the users
-            list of collaborating on songs.
-            
-            returns a python dictionary. If there was an error:
-                {"errorMessage" : errorMessage}
-            or on success:
-                {"jingleKey" : key}
-            jingleKey is the Jingle entity key for the updated jingle entity
             
         beginEditing(jid)                                                                               **DONE**
             called when a user wants to start editing the jingle jid
