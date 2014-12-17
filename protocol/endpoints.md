@@ -20,6 +20,7 @@ Add Note = /songs/{songid}/notes PUT
 =======
 Adds a note to the specified song. Expects JSON.
 
+* action
 * actionId
 * note
   * id
@@ -36,11 +37,11 @@ Removes a note from the specified song. Expects URI parameters.
 * trackId
 * noteId
 
-
 Add Instrument = /songs/{songid}/instruments PUT
 =======
 Adds a track (instrument) to the specified song. Expects JSON.
 
+* action
 * actionId
 * instrument
   * track
@@ -52,6 +53,28 @@ Removes a track (instrument) from the specified song. Expects URI parameters.
 
 * actionId
 * instrumentTrack
+
+Change Tempo = /songs/{songid}/tempo PUT
+=======
+Changes the tempo to a new value. Expects JSON.
+
+* action
+* actionId
+* tempo
+
+Change Subdivisions = /songs/{songid}/subdivisions PUT
+=======
+Changes the subdivision value to a new value. Expects JSON.
+
+* action
+* actionId
+* subDivisions
+
+Request State Dump = /songs/{songid}/state GET
+=======
+Changes the subdivision value to a new value. Expects URI parameters.
+
+* actionId
 
 Get User by Username = /users GET
 =======
