@@ -6,15 +6,13 @@ REST Endpoints
 
 /songs/* - Song Actions/Data
 
-Get Song By ID = /songs/get/{songid}
+Get Song By ID = /songs/{songid} GET
 ====================================
 Returns the song JSON for the song with the given ID.
-(Incomplete - uses dummy data, but can be switched to datastore by uncommenting a few lines)
 
-Get Song MIDI by ID = /songs/get/midi/{songid}
+Get Song MIDI by ID = /songs/{songid}/midi GET
 ==============================================
 Returns the song MIDI (base64 encoded) for the song with the given ID
-(Incomplete - uses dummy data, but can be switched to datastore by uncommenting a few lines)
 
 Add Note = /songs/{songid}/notes PUT
 =======
