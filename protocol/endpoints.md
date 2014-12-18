@@ -76,6 +76,10 @@ Changes the subdivision value to a new value. Expects URI parameters.
 
 * actionId
 
+Request Token = /songs/{songid}/token GET
+=======
+Request token at start of editing.
+
 Get User by Username = /users GET
 =======
 Retrieves user entity. Expects URI parameters.
