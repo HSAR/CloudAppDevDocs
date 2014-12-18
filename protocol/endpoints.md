@@ -26,7 +26,7 @@ Adds a note to the specified song. Expects JSON.
   * id
   * pos
   * track
-  * note
+  * pitch
   * length
 
 Remove Note = /songs/{songid}/notes DELETE
@@ -53,6 +53,15 @@ Removes a track (instrument) from the specified song. Expects URI parameters.
 
 * actionId
 * instrumentTrack
+
+Remove Instrument = /songs/{songid}/instruments PATCH
+======
+Changes a track (instrument) in the specified song. Expects JSON.
+
+* action
+* actionId
+* instrumentTrack
+* instrumentNumber
 
 Change Tempo = /songs/{songid}/tempo PUT
 =======
