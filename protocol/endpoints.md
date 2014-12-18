@@ -34,7 +34,7 @@ Remove Note = /songs/{songid}/notes DELETE
 Removes a note from the specified song. Expects URI parameters.
 
 * actionId
-* trackId
+* track
 * noteId
 
 Add Instrument = /songs/{songid}/instruments PUT
