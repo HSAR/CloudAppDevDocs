@@ -110,21 +110,24 @@ This is a request for a stateDump
   "actionId": uniqueActionId,
 }
 
-Server replies
---------------
+Server broadcasts
+-----------------
 
-The server replies with the same action contents, but with an additional field,
-"checksum". This contains a checksum of the state after this action has been
-applied. Once clients have no outstanding actions to be serviced (they can
-check this by keeping a list of action IDs sent, remembering to clear it if a
-state dump is required), they can check the state by comparing the checksum
-against a calculated checksum of their own state. If the states don't match,
-they can flag up an error and/or request a state dump.
+The server broadcasts an action to all clients editing that song with the same
+action contents, but with an additional field, "checksum". This contains a
+32-bit unsigned integer checksum (computed using adler32 of the UTF-8 bytes of
+the string, with the  of the state after this action has been applied. Once
+clients have no outstanding actions to be serviced (they can check this by
+keeping a list of action IDs sent, remembering to clear it if a state dump is
+required), they can check the state by comparing the checksum against a
+calculated checksum of their own state. If the states don't match, they can
+flag up an error and/or request a state dump.
 
-The checksum format is tricky, but I propose a sha1sum of the JSON state with
+The checksum format is an unsigned adler32 checksum of the JSON state with
 notes ordered by note ID then noteOn (it's invalid to have a note with the same
-ID and noteOn status), instruments ordered by channel, and no whitespace. If
-anyone has a better idea, feel free to correct this.
+ID and noteOn status), instruments ordered by channel, no whitespace, and
+fields in an object ordered ASCIIbetically. If anyone has a better idea, feel
+free to correct this.
 
 State dump
 ==========
