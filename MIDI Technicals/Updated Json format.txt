@@ -8,15 +8,15 @@
                   {
                       "instrument":number,
                       "notes":     [
-                                        {"id":string, "pos":number, "length":number, "note":number},
-                                        {"id":string, "pos":number, "length":number, "note":number}
+                                        {"id":string, "pos":number, "length":number, "pitch":number},
+                                        {"id":string, "pos":number, "length":number, "pitch":number}
                                    ]
                   },
                   {
                       "instrument":number,
                       "notes":     [
-                                        {"id":string, "pos":number, "length":number, "note":number},
-                                        {"id":string, "pos":number, "length":number, "note":number}
+                                        {"id":string, "pos":number, "length":number, "pitch":number},
+                                        {"id":string, "pos":number, "length":number, "pitch":number}
                                    ]
                   }
              ]
@@ -61,7 +61,7 @@ There are 16 channels available in MIDI but channel 10 is reserved for percussio
         
         length - The number of subDivisions this note lasts for
 
-        note - a number from 0 to 127 representing which note should be played. We are probably going to limit to 3 octaves,
+        pitch - a number from 0 to 127 representing which note should be played. We are probably going to limit to 3 octaves,
                so this range of numbers will be more restricted
 
 

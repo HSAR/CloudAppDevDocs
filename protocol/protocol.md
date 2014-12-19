@@ -44,7 +44,7 @@ noteAdd
     "id": number,
     "pos": number,
     "track": number,
-    "note": number,
+    "pitch": number,
     "length": number
   }
 }
