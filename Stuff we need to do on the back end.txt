@@ -1,0 +1,86 @@
+End Point problems?
+
+	song get only returns the json tune part, not things like title and all that
+
+	StateDump is acting like an action but it's not. This will be more like song get if not exactly the same
+
+	UserSongsHandler - using json.dumps on a list of jingle entities
+
+	UserCollabsHandler - using json.dumps on a list of jingle entities
+
+	UserInvitesHandler - using json.dumps on a list of jingle entities
+
+	should do a permissions check on BeginEditing
+
+
+Still need lots more end points:
+	getting collaborators on a particular jingle
+	
+	searching jingles? not sure what the status on this actually is
+
+	creating a user
+
+	update username
+
+	update bio
+
+	update tags (user)
+
+	add collab invite
+
+	answer collab invite
+
+	remove collab
+
+
+	create jingle
+
+	change title
+
+	change genre
+
+	change tags (jingle)
+
+A few of these are "social" features that Sam has already mentioned
+
+
+Other completely different things:
+	sort out with Mark how we are going to get the number of bars
+
+	sort out if when changing the sub divisions we will also alter the note positions and lengths to take account of it
+
+	more permissions
+
+	request new token when a users current token expires
+
+
+Permisions
+	anyone can get a user by username or UID
+
+	at the momement we will let anyone see a list of the users songs or songs they are collaborating on
+		this would be different if we were going to add the functionality for private and public songs but it's just adding more features
+
+	anyone can get a jingle
+
+	anyone can get the collaborators on a jingle
+
+	anyone can search jingles
+
+	anyone can create a user
+
+	only a user can update their bio, tags, username and answer their collab invites 
+
+	when adding a collab invite
+		only the owner of the jingle can add a collaborator to it
+
+	when removing a collab
+		users can only remove themselves from collaborating on a jingle OR
+		jingle authors can remove any collaborator from it
+
+	only registered users can create jingles
+
+	only the jingle author can change the jingle title, genre, tags or the song itself
+
+	only a user who is allowed to edit a jingle is allowed to get a token for editing on it
+
+	
