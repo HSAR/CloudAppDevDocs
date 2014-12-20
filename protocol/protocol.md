@@ -124,9 +124,9 @@ calculated checksum of their own state. If the states don't match, they can
 flag up an error and/or request a state dump.
 
 The checksum format is an unsigned adler32 checksum of the JSON state with
-notes ordered by note ID, instruments ordered by channel, no whitespace, and
-fields in an object ordered ASCIIbetically. If anyone has a better idea, feel
-free to correct this.
+notes ordered by note ID, instruments ordered by channel (ie index order,
+unsorted), no whitespace, and fields in an object ordered ASCIIbetically. If
+anyone has a better idea, feel free to correct this.
 
 State dump
 ==========
