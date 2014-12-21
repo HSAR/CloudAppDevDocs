@@ -170,11 +170,14 @@ Blocking Writes
             token is the channel token that a client can use to set up a channel
             to listen to changes to the jingle from other users
             
-        requestNewToken(jid, oldToken)
+        requestNewToken(jid, oldToken)                                                                  **DONE**
             called via a request from the client when they notice that their token has expired.
             takes the id of the jingle the client was editing and the old token which must now be removed
             from the relevant JinglrMap.
-            returns a fresh token which can be used by the client
+            in a success case it will return:
+               {"token" : channelToken}
+            in a fail it will return:
+               {"errorMessage" : errorMessage}
             
         stopEditing(client_id)                                                                          **DONE**
             called when a user stops editing a jingle
