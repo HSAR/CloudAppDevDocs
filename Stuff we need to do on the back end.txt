@@ -11,6 +11,8 @@ End Point problems?
 	UserInvitesHandler - using json.dumps on a list of jingle entities
 
 	should do a permissions check on BeginEditing
+    
+    db_to_dict doesn't seem to work
 
 
 Still need lots more end points:
@@ -40,24 +42,27 @@ Still need lots more end points:
 	change genre
 
 	change tags (jingle)
+    
+    requesting a new token
 
 A few of these are "social" features that Sam has already mentioned
 
 
 Other completely different things:
-	sort out with Mark how we are going to get the number of bars
 
 	sort out if when changing the sub divisions we will also alter the note positions and lengths to take account of it
 
 	more permissions
+    
+    more transactions
+    
+    channel presence in bound service doesn't seem to be able to find my channel disconnected handler
+    
 
-	request new token when a users current token expires
-
-
-Permisions
+Permissions
 	anyone can get a user by username or UID
 
-	at the momement we will let anyone see a list of the users songs or songs they are collaborating on
+	at the moment we will let anyone see a list of the users songs or songs they are collaborating on
 		this would be different if we were going to add the functionality for private and public songs but it's just adding more features
 
 	anyone can get a jingle
@@ -79,8 +84,10 @@ Permisions
 
 	only registered users can create jingles
 
-	only the jingle author can change the jingle title, genre, tags or the song itself
+	only the jingle author can change the jingle title, genre or tags
+    
+    jingle authors and collaborators can edit the jingle tune
 
 	only a user who is allowed to edit a jingle is allowed to get a token for editing on it
-
+        both begin editing and request new token
 	
