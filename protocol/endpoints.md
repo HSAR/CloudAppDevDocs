@@ -7,11 +7,15 @@ REST Endpoints
 /songs/* - Song Actions/Data
 
 Get Song By ID = /songs/{songid} GET
-====================================
-Returns the song JSON for the song with the given ID.
+===
+Returns all held song data for the song with the given ID.
+
+Get Song JSON = /songs/{songid}/json GET
+===
+Returns the held JSON for the song with the given ID.
 
 Get Song MIDI by ID = /songs/{songid}/midi GET
-==============================================
+===
 Returns the song MIDI (base64 encoded) for the song with the given ID
 
 Add Note = /songs/{songid}/notes PUT
@@ -79,9 +83,7 @@ Changes the subdivision value to a new value. Expects JSON.
 
 Request State Dump = /songs/{songid}/state GET
 =======
-Changes the subdivision value to a new value. Expects URI parameters.
-
-* actionId
+OBSOLETE - use /songs/{songid}/ GET
 
 Request Token = /songs/{songid}/token GET
 =======
