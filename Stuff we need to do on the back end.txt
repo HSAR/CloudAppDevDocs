@@ -1,16 +1,4 @@
-End Point problems?
-
-	UserSongsHandler - using json.dumps on a list of jingle entities
-
-	UserCollabsHandler - using json.dumps on a list of jingle entities
-
-	UserInvitesHandler - using json.dumps on a list of jingle entities
-    
-    db_to_dict doesn't seem to work
-
-
 Still need lots more end points:
-	getting collaborators on a particular jingle
 	
 	searching jingles? not sure what the status on this actually is
 
@@ -38,8 +26,6 @@ Other completely different things:
 
 	sort out if when changing the sub divisions we will also alter the note positions and lengths to take account of it
 
-	more permissions
-    
     at the moment from looking at the logs it seems songs/token is being called without actually making a channel out
     of it on the client side which means it is never connected which means it never gets disconnected. Also, in these cases 
     it is called twice immediately next to each other which can't be right
@@ -48,8 +34,7 @@ Other completely different things:
 Permissions
 	anyone can get a user by username or UID
 
-	at the moment we will let anyone see a list of the users songs or songs they are collaborating on
-		this would be different if we were going to add the functionality for private and public songs but it's just adding more features
+	anyone can see a list of the users songs or songs they are collaborating on or songs they have been invited on
 
 	anyone can get a jingle
 
@@ -59,21 +44,21 @@ Permissions
 
 	anyone can create a user
 
-	only a user can update their bio, tags, username and answer their collab invites 
+	only a user can update their bio, tags, username and answer their collab invites [can_edit_user]
 
 	when adding a collab invite
-		only the owner of the jingle can add a collaborator to it
+		only the owner of the jingle can add a collaborator to it                    [jingle_owener]
 
 	when removing a collab
 		users can only remove themselves from collaborating on a jingle OR
-		jingle authors can remove any collaborator from it
+		jingle authors can remove any collaborator from it                           [can_remove_collab]
 
-	only registered users can create jingles
+	only registered users can create jingles                                         [is_registered]
 
-	only the jingle author can change the jingle title, genre or tags
+	only the jingle author can change the jingle title, genre or tags                [jingle_owener]
     
-    jingle authors and collaborators can edit the jingle tune
+    jingle authors and collaborators can edit the jingle tune                        [allowed]
 
 	only a user who is allowed to edit a jingle is allowed to get a token for editing on it
-        both begin editing and request new token
+        both begin editing and request new token                                     [allowed]
 	
