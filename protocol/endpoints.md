@@ -95,9 +95,30 @@ Retrieves user entity. Expects URI parameters.
 
 * username
 
+Create New User = /users PUT
+=======
+Retrieves user entity. Expects URI parameters.
+
+* uid
+* username
+
+See datastore functions / createUser()
+
 Get User by UID = /users/{uid} GET
 =======
 Retrieves user entity.
+
+Change User Properties = /users/{uid} PATCH
+=======
+Changes user properties, but only if they are present in the request body. Expects JSON.
+
+* bio (optional)
+* tags (optional)
+* username (optional)
+
+Returns {"userKey" : key} on success, or standard error message 500 if one or more failed or 400 if no fields were given.
+
+NOT TRANSACTIONAL, RETRY IF FAILURE
 
 Get User Songs = /users/{uid}/songs GET
 =======
