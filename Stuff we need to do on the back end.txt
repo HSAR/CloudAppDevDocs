@@ -14,14 +14,6 @@ Still need lots more end points:
 	
 	searching jingles? not sure what the status on this actually is
 
-	creating a user
-
-	update username
-
-	update bio
-
-	update tags (user)
-
 	add collab invite
 
 	answer collab invite
