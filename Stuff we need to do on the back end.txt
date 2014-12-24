@@ -2,15 +2,11 @@ End Point problems?
 
 	song get only returns the json tune part, not things like title and all that
 
-	StateDump is acting like an action but it's not. This will be more like song get if not exactly the same
-
 	UserSongsHandler - using json.dumps on a list of jingle entities
 
 	UserCollabsHandler - using json.dumps on a list of jingle entities
 
 	UserInvitesHandler - using json.dumps on a list of jingle entities
-
-	should do a permissions check on BeginEditing
     
     db_to_dict doesn't seem to work
 
@@ -56,7 +52,9 @@ Other completely different things:
     
     more transactions
     
-    channel presence in bound service doesn't seem to be able to find my channel disconnected handler
+    at the moment from looking at the logs it seems songs/token is being called without actually making a channel out
+    of it on the client side which means it is never connected which means it never gets disconnected. Also, in these cases 
+    it is called twice immediately next to each other which can't be right
     
 
 Permissions
