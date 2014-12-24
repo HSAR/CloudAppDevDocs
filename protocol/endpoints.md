@@ -1,7 +1,5 @@
 REST Endpoints
 ========
-/auth/* - Authenticated Actions/Data
-
 /users/* - Public User Actions/Data
 
 /songs/* - Song Actions/Data
@@ -132,3 +130,6 @@ Get User Invites = /users/{uid}/invites GET
 =======
 Retrieves list of songs user has been invited to work on.
 
+Get Current UID = /uid
+=====
+Returns JSON of current UID.
