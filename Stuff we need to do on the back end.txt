@@ -1,12 +1,6 @@
 Still need lots more end points:
 	
 	searching jingles? not sure what the status on this actually is
-
-	change title
-
-	change genre
-
-	change tags (jingle)
     
     requesting a new token
 

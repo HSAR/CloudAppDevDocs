@@ -16,6 +16,19 @@ Get Song By ID = /songs/{songid} GET
 ===
 Returns all held song data for the song with the given ID.
 
+Change Song Properties = /songs/ PATCH
+=======
+Changes user properties, but only if they are present in the request body. Expects JSON.
+
+* title (optional)
+* genre (optional)
+* tags (optional)
+
+Returns {"jingleKey" : key} on success, or standard error message 500 if one or more failed or 400 if no fields were given.
+
+NOT TRANSACTIONAL, RETRY IF FAILURE
+RECOMMEND CHANGING ONE AT A TIME ONLY
+
 Get Song JSON = /songs/{songid}/json GET
 ===
 Returns the held JSON for the song with the given ID.
@@ -125,6 +138,7 @@ Changes user properties, but only if they are present in the request body. Expec
 Returns {"userKey" : key} on success, or standard error message 500 if one or more failed or 400 if no fields were given.
 
 NOT TRANSACTIONAL, RETRY IF FAILURE
+RECOMMEND CHANGING ONE AT A TIME ONLY
 
 Get User Songs = /users/{uid}/songs GET
 =======
