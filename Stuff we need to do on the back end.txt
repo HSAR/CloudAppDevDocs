@@ -2,10 +2,6 @@ Still need lots more end points:
 	
 	searching jingles? not sure what the status on this actually is
 
-	add collab invite
-
-	answer collab invite
-
 	remove collab
 
 

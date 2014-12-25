@@ -130,6 +130,18 @@ Get User Invites = /users/{uid}/invites GET
 =======
 Retrieves list of songs user has been invited to work on.
 
+Invite User to Collab = /users/{uid}/invites/{jid} DELETE
+=======
+Send an invite.
+
+Respond to User Invites = /users/{uid}/invites/{jid} DELETE
+=======
+Respond to an invite. Expects URI parameters.
+
+* accept
+
+Parameter MUST BE "true" or "false", any other value will result in Error 400.
+
 Get Current UID = /uid
 =====
 Returns JSON of current UID.
