@@ -81,7 +81,7 @@ Changes the subdivision value to a new value. Expects JSON.
 
 Request State Dump = /songs/{songid}/state GET
 =======
-OBSOLETE - use /songs/{songid}/ GET
+DEPRECATED - use /songs/{songid}/ GET
 
 Request Token = /songs/{songid}/token GET
 =======
@@ -125,6 +125,12 @@ Retrieves list of songs owned by user.
 Get User Collabs = /users/{uid}/collabs GET
 =======
 Retrieves list of songs worked on by user.
+
+Remove Collab = /users/{uid}/collabs/{jid} DELETE
+=======
+Removes a user from the list of jingle collaborators.
+
+This action can only be done if you own the jingle or if you are the user being removed.
 
 Get User Invites = /users/{uid}/invites GET
 =======
