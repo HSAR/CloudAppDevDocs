@@ -4,6 +4,14 @@ REST Endpoints
 
 /songs/* - Song Actions/Data
 
+Create Song = /songs/ PUT
+===
+Creates a new song. Expects JSON.
+
+* title
+* genre (optional)
+* tags (optional)
+
 Get Song By ID = /songs/{songid} GET
 ===
 Returns all held song data for the song with the given ID.
