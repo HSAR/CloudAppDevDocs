@@ -113,6 +113,22 @@ Request Token = /api/songs/{songid}/token GET
 =======
 Request token at start of editing.
 
+Search = /api/songs/search?query=XYZ&sort=ABC&token=DEF GET
+===========================================================
+
+If token specified, continue the previous search defined by the token.
+
+Else, search for song by all text fields using query (search for title works
+with prefix matching, author tags and genre are exact match only due to
+datastore limitations) (if query not specified, all songs are returned) sorted
+by the field specified in sort (if query is present, sorting by title is
+enforced due to datastore limitations)
+
+Returns a JSON object with "results", "token" and "more" fields. Results is an
+array of songs (minus the actual jingle), token is the token to be given in the
+URL (already URL-safe), and more if false means there are no more results (if
+true, there are probably but not definitely more)
+
 Get User by Username = /api/users GET
 =======
 Retrieves user entity. Expects URI parameters.

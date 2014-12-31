@@ -56,7 +56,6 @@ Read Functions
             of the collaborators
             
         getAllJingles(order, reverse_order, max_results, cursor_url)                                    **IN PROGRESS**
-            current state of the search function. Does no searching yet, just 
             returns paged results in a specified order
             
             order is one of Orderings as defined at the top of the datastore. Defaults to creation date
@@ -68,6 +67,21 @@ Read Functions
             cursor_url is what you need to pass back to us to get the next page of results. If None returns the first page
             
             returns? ask Jon
+
+        searchJingle(jingle, sort, isAnd)                                                               **DONE**
+            returns (results, token, more)
+
+            jingle is a dict with fields to be searched for. Currently supported: title, genre, date_created, author, tags (all strings except date_created)
+
+            sort is which field to sort it by. If the "title" field is specified in jingle, sort by title is (silently) enforced (datastore restriction)
+
+            isAnd True if the fields in the dict are to be searched for with AND, False if they're to be searched with OR.
+
+            results is an array of dicts with the results
+
+            token is a token object containing a reference to get the next page
+
+            more is a boolean. If False there are no more. If True there are probably more (but this is not guaranteed - datastore restriction).
             
         getCollaborators(jid)                                                                           **DONE**
             returns a list of JingleUser entities who are collaborators to this Jingle. returns None if jid is not valid

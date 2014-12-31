@@ -1,7 +1,5 @@
 Still need lots more end points:
 	
-	searching jingles? not sure what the status on this actually is
-    
     requesting a new token
 
 A few of these are "social" features that Sam has already mentioned
