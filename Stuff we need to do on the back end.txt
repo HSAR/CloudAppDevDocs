@@ -9,8 +9,6 @@ A few of these are "social" features that Sam has already mentioned
 
 Other completely different things:
 
-	sort out if when changing the sub divisions we will also alter the note positions and lengths to take account of it
-
     at the moment from looking at the logs it seems songs/token is being called without actually making a channel out
     of it on the client side which means it is never connected which means it never gets disconnected. Also, in these cases 
     it is called twice immediately next to each other which can't be right
