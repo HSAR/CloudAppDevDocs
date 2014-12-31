@@ -1,10 +1,15 @@
 REST Endpoints
 ========
-/users/* - Public User Actions/Data
 
-/songs/* - Song Actions/Data
+/web/users/* - User Webpages
 
-Create Song = /songs/ PUT
+/api/users/* - User Actions/Data
+
+/web/songs/* - Song Webpages
+
+/api/songs/* - Song Actions/Data
+
+Create Song = /api/songs/ PUT
 ===
 Creates a new song. Expects JSON.
 
@@ -12,11 +17,11 @@ Creates a new song. Expects JSON.
 * genre (optional)
 * tags (optional)
 
-Get Song By ID = /songs/{songid} GET
+Get Song By ID = /api/songs/{songid} GET
 ===
 Returns all held song data for the song with the given ID.
 
-Change Song Properties = /songs/ PATCH
+Change Song Properties = /api/songs/ PATCH
 =======
 Changes user properties, but only if they are present in the request body. Expects JSON.
 
@@ -29,15 +34,15 @@ Returns {"jingleKey" : key} on success, or standard error message 500 if one or 
 NOT TRANSACTIONAL, RETRY IF FAILURE
 RECOMMEND CHANGING ONE AT A TIME ONLY
 
-Get Song JSON = /songs/{songid}/json GET
+Get Song JSON = /api/songs/{songid}/json GET
 ===
 Returns the held JSON for the song with the given ID.
 
-Get Song MIDI by ID = /songs/{songid}/midi GET
+Get Song MIDI by ID = /api/songs/{songid}/midi GET
 ===
 Returns the song MIDI (base64 encoded) for the song with the given ID
 
-Add Note = /songs/{songid}/notes PUT
+Add Note = /api/songs/{songid}/notes PUT
 =======
 Adds a note to the specified song. Expects JSON.
 
@@ -50,7 +55,7 @@ Adds a note to the specified song. Expects JSON.
   * pitch
   * length
 
-Remove Note = /songs/{songid}/notes DELETE
+Remove Note = /api/songs/{songid}/notes DELETE
 ======
 Removes a note from the specified song. Expects URI parameters.
 
@@ -58,7 +63,7 @@ Removes a note from the specified song. Expects URI parameters.
 * track
 * noteId
 
-Add Instrument = /songs/{songid}/instruments PUT
+Add Instrument = /api/songs/{songid}/instruments PUT
 =======
 Adds a track (instrument) to the specified song. Expects JSON.
 
@@ -68,14 +73,14 @@ Adds a track (instrument) to the specified song. Expects JSON.
   * track
   * inst
 
-Remove Instrument = /songs/{songid}/instruments DELETE
+Remove Instrument = /api/songs/{songid}/instruments DELETE
 ======
 Removes a track (instrument) from the specified song. Expects URI parameters.
 
 * actionId
 * instrumentTrack
 
-Remove Instrument = /songs/{songid}/instruments PATCH
+Remove Instrument = /api/songs/{songid}/instruments PATCH
 ======
 Changes a track (instrument) in the specified song. Expects JSON.
 
@@ -84,7 +89,7 @@ Changes a track (instrument) in the specified song. Expects JSON.
 * instrumentTrack
 * instrumentNumber
 
-Change Tempo = /songs/{songid}/tempo PUT
+Change Tempo = /api/songs/{songid}/tempo PUT
 =======
 Changes the tempo to a new value. Expects JSON.
 
@@ -92,7 +97,7 @@ Changes the tempo to a new value. Expects JSON.
 * actionId
 * tempo
 
-Change Subdivisions = /songs/{songid}/subdivisions PUT
+Change Subdivisions = /api/songs/{songid}/subdivisions PUT
 =======
 Changes the subdivision value to a new value. Expects JSON.
 
@@ -100,21 +105,21 @@ Changes the subdivision value to a new value. Expects JSON.
 * actionId
 * subDivisions
 
-Request State Dump = /songs/{songid}/state GET
+Request State Dump = /api/songs/{songid}/state GET
 =======
 DEPRECATED - use /songs/{songid}/ GET
 
-Request Token = /songs/{songid}/token GET
+Request Token = /api/songs/{songid}/token GET
 =======
 Request token at start of editing.
 
-Get User by Username = /users GET
+Get User by Username = /api/users GET
 =======
 Retrieves user entity. Expects URI parameters.
 
 * username
 
-Create New User = /users PUT
+Create New User = /api/users PUT
 =======
 Retrieves user entity. Expects URI parameters.
 
@@ -123,11 +128,11 @@ Retrieves user entity. Expects URI parameters.
 
 See datastore functions / createUser()
 
-Get User by UID = /users/{uid} GET
+Get User by UID = /api/users/{uid} GET
 =======
 Retrieves user entity.
 
-Change User Properties = /users/{uid} PATCH
+Change User Properties = /api/users/{uid} PATCH
 =======
 Changes user properties, but only if they are present in the request body. Expects JSON.
 
@@ -140,29 +145,29 @@ Returns {"userKey" : key} on success, or standard error message 500 if one or mo
 NOT TRANSACTIONAL, RETRY IF FAILURE
 RECOMMEND CHANGING ONE AT A TIME ONLY
 
-Get User Songs = /users/{uid}/songs GET
+Get User Songs = /api/users/{uid}/songs GET
 =======
 Retrieves list of songs owned by user.
 
-Get User Collabs = /users/{uid}/collabs GET
+Get User Collabs = /api/users/{uid}/collabs GET
 =======
 Retrieves list of songs worked on by user.
 
-Remove Collab = /users/{uid}/collabs/{jid} DELETE
+Remove Collab = /api/users/{uid}/collabs/{jid} DELETE
 =======
 Removes a user from the list of jingle collaborators.
 
 This action can only be done if you own the jingle or if you are the user being removed.
 
-Get User Invites = /users/{uid}/invites GET
+Get User Invites = /api/users/{uid}/invites GET
 =======
 Retrieves list of songs user has been invited to work on.
 
-Invite User to Collab = /users/{uid}/invites/{jid} DELETE
+Invite User to Collab = /api/users/{uid}/invites/{jid} DELETE
 =======
 Send an invite.
 
-Respond to User Invites = /users/{uid}/invites/{jid} DELETE
+Respond to User Invites = /api/users/{uid}/invites/{jid} DELETE
 =======
 Respond to an invite. Expects URI parameters.
 
