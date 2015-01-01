@@ -1,10 +1,3 @@
-Still need lots more end points:
-	
-    requesting a new token
-
-A few of these are "social" features that Sam has already mentioned
-
-
 Other completely different things:
 
     at the moment from looking at the logs it seems songs/token is being called without actually making a channel out
