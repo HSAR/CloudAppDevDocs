@@ -1,3 +1,7 @@
+Review "get all users" code structure - true/false for arbitrary field limitations is... not that great.
+
+    Suggest we pass in an array of desired fields e.g. ["username", "uid"] which will be what are passed out
+
 Other completely different things:
 
     at the moment from looking at the logs it seems songs/token is being called without actually making a channel out
