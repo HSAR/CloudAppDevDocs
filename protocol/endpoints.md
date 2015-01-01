@@ -111,7 +111,12 @@ DEPRECATED - use /songs/{songid}/ GET
 
 Request Token = /api/songs/{songid}/token GET
 =======
-Request token at start of editing.
+Request token at start of editing. Expects URI parameters.
+
+* prevToken (optional)
+
+If prevToken is given, the endpoint will attempt to refresh an old token that has expired after the 2-hour limit.
+If no parameters given, will generate a new token for a new channel. To be used for clients requesting a connection at page load.
 
 Search = /api/songs/search?query=XYZ&sort=ABC&token=DEF GET
 ===========================================================
@@ -133,7 +138,10 @@ Get User by Username = /api/users GET
 =======
 Retrieves user entity. Expects URI parameters.
 
-* username
+* username (optional)
+
+If username is given, will attempt to look up (exact match) the given parameter.
+If no parameters given, will retrieve a list of all registered users.
 
 Create New User = /api/users PUT
 =======
