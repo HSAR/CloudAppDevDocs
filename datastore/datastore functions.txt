@@ -45,6 +45,12 @@ Read Functions
             internal function to datastore
             returns the username of the user whose id is uid
             will use memchache to reduce query load
+
+        completeUsername(partialName)                                                                   **DONE**
+            returns a list of user dicts.
+
+            partialName is a string containing a prefix for a username to
+            complete.
             
     
     Jingle

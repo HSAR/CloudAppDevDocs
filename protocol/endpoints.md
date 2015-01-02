@@ -143,6 +143,13 @@ Retrieves user entity. Expects URI parameters.
 If username is given, will attempt to look up (exact match) the given parameter.
 If no parameters given, will retrieve a list of all registered users.
 
+Autocomplete username = /api/users/complete GET
+=======
+Retrieves list of max 10 users whose usernames start with supplied username.
+Expects URI parameters.
+
+* username
+
 Create New User = /api/users PUT
 =======
 Retrieves user entity. Expects URI parameters.
