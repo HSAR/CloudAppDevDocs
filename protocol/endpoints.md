@@ -202,7 +202,7 @@ Respond to User Invites = /api/users/{uid}/invites/{jid} DELETE
 =======
 Respond to an invite. Expects URI parameters.
 
-* accept
+* response
 
 Parameter MUST BE "true" or "false", any other value will result in Error 400.
 
