@@ -118,8 +118,8 @@ Request token at start of editing. Expects URI parameters.
 If prevToken is given, the endpoint will attempt to refresh an old token that has expired after the 2-hour limit.
 If no parameters given, will generate a new token for a new channel. To be used for clients requesting a connection at page load.
 
-Search = /api/songs/search?query=XYZ&sort=ABC&token=DEF GET
-===========================================================
+Search = /api/songs/search?query=XYZ&sort=ABC&token=DEF&tag=GHI GET
+===================================================================
 
 If token specified, continue the previous search defined by the token.
 
@@ -127,7 +127,11 @@ Else, search for song by all text fields using query (search for title works
 with prefix matching, author tags and genre are exact match only due to
 datastore limitations) (if query not specified, all songs are returned) sorted
 by the field specified in sort (if query is present, sorting by title is
-enforced due to datastore limitations)
+enforced due to datastore limitations).
+
+If tag is specified, search for things only with that tag. Note that if
+combined with query, it will act as an OR, ie it will search for things
+matching the query or containing that tag.
 
 Returns a JSON object with "results", "token" and "more" fields. Results is an
 array of songs (minus the actual jingle), token is the token to be given in the
