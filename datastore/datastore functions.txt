@@ -61,18 +61,6 @@ Read Functions
             of the author. and it has 'collab_usernames' which is a list of usernames
             of the collaborators
             
-        getAllJingles(order, reverse_order, max_results, cursor_url)                                    **IN PROGRESS**
-            returns paged results in a specified order
-            
-            order is one of Orderings as defined at the top of the datastore. Defaults to creation date
-            
-            reverse_order is a boolean, defaults to False
-            
-            max_results is the number of results per page. Defaults to 20
-            
-            cursor_url is what you need to pass back to us to get the next page of results. If None returns the first page
-            
-            returns? ask Jon
 
         searchJingle(jingle, sort, isAnd)                                                               **DONE**
             returns (results, token, more)
@@ -113,19 +101,14 @@ Blocking Writes
                 {"userKey" : key}
             userKey is the JinglrUser entity key for the newly created user
             
-        updateUsername(uid, username)                                                                   **DONE**
+        updateUser(uid, data)                                                                           **DONE**
+            takes a data dictionary. The keys can be 'bio', 'tags' and 'username'
+            and the user entity is updated with their values
             returns a python dictionary. If there was an error:
                 {"errorMessage" : errorMessage}
             or on success:
                 {"userKey" : key}
             userKey is the JinglrUser entity key of the edited user
-            
-        updateBio(uid, bio)                                                                             **DONE**
-            returns the JinglrUser entity key on success, or None if uid is not valid
-            
-        updateTags(uid, tags)                                                                           **DONE**
-            tags is a list of the new set of tags for the user. It replaces the old tags
-            returns the JinglrUser entity key on success, or None if uid is not valid
             
         addCollabInvite(username, jid)                                                                  **DONE**
             This is used to invite the user with username to collaborate on the jingle
@@ -166,15 +149,14 @@ Blocking Writes
             
             returns the key of the newly created Jingle Entity
             
-        changeTitle(jid, title)                                                                         **DONE**
-            returns the Jingle entity key on success, or None if jid is not valid
-            
-        changeGenre(jid, genre)                                                                         **DONE**
-            returns the Jingle entity key on success, or None if jid is not valid
-            
-        changeTags(jid, tags)                                                                           **DONE**
-            tags is a list of the new set of tags for the jingle. It replaces the old tags
-            returns the Jingle entity key on success, or None if jid is not valid
+        updateJingle(uid, data)                                                                         **DONE**
+            takes a data dictionary. The keys can be 'title', 'tags' and 'genre'
+            and the jingle entity is updated with their values
+            returns a python dictionary. If there was an error:
+                {"errorMessage" : errorMessage}
+            or on success:
+                {"jingleKey" : key}
+            jingleKey is the Jingle entity key of the edited jingle
             
         changeJingle(jid, jingle)                                                                       **DONE**    
             saves the updated jingle for this jingle entity. Returns the jingle entity key
